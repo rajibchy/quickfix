@@ -248,8 +248,20 @@ public:
 
   Log* getLog() { return &m_state; }
   const MessageStore* getStore() { return &m_state; }
+  int getPort( ) {
+      return _port;
+  }
+  const std::string& getHost( ) {
+      return _host;
+  }
+  void setHostInfo( const std::string& host, int port ) {
+      _port = port;
+      _host = std::string( host.c_str( ) );
+  }
 
 private:
+  int _port;
+  std::string _host;
   typedef std::map<SessionID, Session*> Sessions;
   typedef std::set<SessionID> SessionIDs;
 

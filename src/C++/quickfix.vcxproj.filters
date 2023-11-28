@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Acceptor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\DataDictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\DataDictionaryProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Dictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\FieldConvertors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\FieldMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\FieldTypes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\FileLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\FileStore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Group.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\HttpConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\HttpMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\HttpParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\HttpServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Initiator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Message.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\MessageSorters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\MessageStore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\MySQLLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\MySQLStore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\NullStore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\OdbcLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\OdbcStore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\PostgreSQLLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\PostgreSQLStore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\pugixml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\PUGIXML_DOMDocument.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SessionFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SessionSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketAcceptor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketConnector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketInitiator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSocketAcceptor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSocketConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSocketInitiator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\TimeRange.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketMonitor_WIN32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SSLSocketAcceptor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SSLSocketConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\SSLSocketInitiator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSSLSocketAcceptor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSSLSocketConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSSLSocketInitiator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\fix\quickfix\src\C++\UtilitySSL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="strptime.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\fix\quickfix\src\C++\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4893E59A-77D0-3FA4-8CFC-F0F021D6AD75}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Acceptor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseConnectionID.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseConnectionPool.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataDictionary.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataDictionaryProvider.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dictionary.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dirent_windows.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DOMDocument.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Except.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldConvertors.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldMap.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldNumbers.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fields.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldTypes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLog.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileStore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FixCommonFields.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FixFieldNumbers.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FixFields.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FixValues.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Group.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HtmlBuilder.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpConnection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpMessage.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpParser.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="index.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Initiator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageCracker.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageSorters.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageStore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mutex.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MySQLConnection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MySQLLog.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MySQLStore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NullStore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OdbcConnection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OdbcLog.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OdbcStore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PostgreSQLConnection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PostgreSQLLog.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PostgreSQLStore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pugiconfig.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pugixml.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PUGIXML_DOMDocument.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Responder.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scope_guard.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionFactory.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionID.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionSettings.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedArray.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketAcceptor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketConnection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketConnector.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketInitiator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketMonitor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketMonitor_WIN32.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketServer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SSLSocketAcceptor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SSLSocketConnection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SSLSocketInitiator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdint_msvc.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="strptime.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedSocketAcceptor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedSocketConnection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedSocketInitiator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedSSLSocketAcceptor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedSSLSocketConnection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedSSLSocketInitiator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeRange.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilitySSL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Values.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

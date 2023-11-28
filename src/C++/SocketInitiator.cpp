@@ -143,7 +143,7 @@ void SocketInitiator::doConnect( const SessionID& s, const Dictionary& d )
     Log* log = session->getLog();
 
     getHost( s, d, address, port, sourceAddress, sourcePort );
-
+    session->setHostInfo( address, port );
     log->onEvent( "Connecting to " + address + " on port " + IntConvertor::convert((unsigned short)port) + " (Source " + sourceAddress + ":" + IntConvertor::convert((unsigned short)sourcePort) + ")");
     socket_handle result = m_connector.connect( address, port, m_noDelay, m_sendBufSize, m_rcvBufSize, sourceAddress, sourcePort );
     setPending( s );

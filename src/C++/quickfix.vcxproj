@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4D3F6F0E-89CA-3F28-A704-8293B93EDFA9}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>quickfix</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\fix\quickfix\src\C++\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">quickfix.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">quickfixd</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\fix\quickfix\src\C++\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">quickfix.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">quickfix</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\fix\quickfix\src\C++\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">quickfix.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">quickfix</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\fix\quickfix\src\C++\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">quickfix.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">quickfix</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug";HAVE_POSTGRESQL;HAVE_SSL</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";HAVE_POSTGRESQL;HAVE_SSL</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\dependancy\openssl\win64\include;E:\Program Files\PostgreSQL\10\include;E:\Program Files\PostgreSQL\10\include\server;E:\fix\quickfix;E:\fix\quickfix\src;E:\fix\quickfix\src\C++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\fix\quickfix\src\C++\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/fix/quickfix/src/C++/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/fix/quickfix -BE:/fix/quickfix --check-stamp-file E:/fix/quickfix/src/C++/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\fix\quickfix\src\C++\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/fix/quickfix/src/C++/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/fix/quickfix -BE:/fix/quickfix --check-stamp-file E:/fix/quickfix/src/C++/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\fix\quickfix\src\C++\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/fix/quickfix/src/C++/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/fix/quickfix -BE:/fix/quickfix --check-stamp-file E:/fix/quickfix/src/C++/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\fix\quickfix\src\C++\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/fix/quickfix/src/C++/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/fix/quickfix -BE:/fix/quickfix --check-stamp-file E:/fix/quickfix/src/C++/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\fix\quickfix\src\C++\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="E:\fix\quickfix\src\C++\Acceptor.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\DataDictionary.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\DataDictionaryProvider.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\Dictionary.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\FieldConvertors.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\FieldMap.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\FieldTypes.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\FileLog.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\FileStore.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\Group.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\HttpConnection.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\HttpMessage.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\HttpParser.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\HttpServer.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\Initiator.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\Log.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\Message.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\MessageSorters.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\MessageStore.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\MySQLLog.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\MySQLStore.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\NullStore.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\OdbcLog.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\OdbcStore.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\Parser.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\PostgreSQLLog.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\PostgreSQLStore.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\pugixml.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\PUGIXML_DOMDocument.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\Session.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SessionFactory.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SessionSettings.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\Settings.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketAcceptor.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketConnection.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketConnector.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketInitiator.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketServer.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\stdafx.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSocketAcceptor.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSocketConnection.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSocketInitiator.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\TimeRange.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\Utility.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SocketMonitor_WIN32.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SSLSocketAcceptor.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SSLSocketConnection.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\SSLSocketInitiator.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSSLSocketAcceptor.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSSLSocketConnection.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\ThreadedSSLSocketInitiator.cpp" />
+    <ClCompile Include="E:\fix\quickfix\src\C++\UtilitySSL.cpp" />
+    <ClCompile Include="strptime.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Acceptor.h" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="DatabaseConnectionID.h" />
+    <ClInclude Include="DatabaseConnectionPool.h" />
+    <ClInclude Include="DataDictionary.h" />
+    <ClInclude Include="DataDictionaryProvider.h" />
+    <ClInclude Include="Dictionary.h" />
+    <ClInclude Include="dirent_windows.h" />
+    <ClInclude Include="DOMDocument.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="Except.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Field.h" />
+    <ClInclude Include="FieldConvertors.h" />
+    <ClInclude Include="FieldMap.h" />
+    <ClInclude Include="FieldNumbers.h" />
+    <ClInclude Include="Fields.h" />
+    <ClInclude Include="FieldTypes.h" />
+    <ClInclude Include="FileLog.h" />
+    <ClInclude Include="FileStore.h" />
+    <ClInclude Include="FixCommonFields.h" />
+    <ClInclude Include="FixFieldNumbers.h" />
+    <ClInclude Include="FixFields.h" />
+    <ClInclude Include="FixValues.h" />
+    <ClInclude Include="Group.h" />
+    <ClInclude Include="HtmlBuilder.h" />
+    <ClInclude Include="HttpConnection.h" />
+    <ClInclude Include="HttpMessage.h" />
+    <ClInclude Include="HttpParser.h" />
+    <ClInclude Include="HttpServer.h" />
+    <ClInclude Include="index.h" />
+    <ClInclude Include="Initiator.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="MessageCracker.h" />
+    <ClInclude Include="MessageSorters.h" />
+    <ClInclude Include="MessageStore.h" />
+    <ClInclude Include="Mutex.h" />
+    <ClInclude Include="MySQLConnection.h" />
+    <ClInclude Include="MySQLLog.h" />
+    <ClInclude Include="MySQLStore.h" />
+    <ClInclude Include="NullStore.h" />
+    <ClInclude Include="OdbcConnection.h" />
+    <ClInclude Include="OdbcLog.h" />
+    <ClInclude Include="OdbcStore.h" />
+    <ClInclude Include="Parser.h" />
+    <ClInclude Include="PostgreSQLConnection.h" />
+    <ClInclude Include="PostgreSQLLog.h" />
+    <ClInclude Include="PostgreSQLStore.h" />
+    <ClInclude Include="pugiconfig.hpp" />
+    <ClInclude Include="pugixml.hpp" />
+    <ClInclude Include="PUGIXML_DOMDocument.h" />
+    <ClInclude Include="Queue.h" />
+    <ClInclude Include="Responder.h" />
+    <ClInclude Include="scope_guard.hpp" />
+    <ClInclude Include="Session.h" />
+    <ClInclude Include="SessionFactory.h" />
+    <ClInclude Include="SessionID.h" />
+    <ClInclude Include="SessionSettings.h" />
+    <ClInclude Include="SessionState.h" />
+    <ClInclude Include="Settings.h" />
+    <ClInclude Include="SharedArray.h" />
+    <ClInclude Include="SocketAcceptor.h" />
+    <ClInclude Include="SocketConnection.h" />
+    <ClInclude Include="SocketConnector.h" />
+    <ClInclude Include="SocketInitiator.h" />
+    <ClInclude Include="SocketMonitor.h" />
+    <ClInclude Include="SocketMonitor_WIN32.h" />
+    <ClInclude Include="SocketServer.h" />
+    <ClInclude Include="SSLSocketAcceptor.h" />
+    <ClInclude Include="SSLSocketConnection.h" />
+    <ClInclude Include="SSLSocketInitiator.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="stdint_msvc.h" />
+    <ClInclude Include="strptime.h" />
+    <ClInclude Include="ThreadedSocketAcceptor.h" />
+    <ClInclude Include="ThreadedSocketConnection.h" />
+    <ClInclude Include="ThreadedSocketInitiator.h" />
+    <ClInclude Include="ThreadedSSLSocketAcceptor.h" />
+    <ClInclude Include="ThreadedSSLSocketConnection.h" />
+    <ClInclude Include="ThreadedSSLSocketInitiator.h" />
+    <ClInclude Include="TimeRange.h" />
+    <ClInclude Include="Utility.h" />
+    <ClInclude Include="UtilitySSL.h" />
+    <ClInclude Include="Values.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
