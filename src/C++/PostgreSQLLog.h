@@ -71,7 +71,7 @@ public:
 
 private:
   void init();
-  void insert( const std::string& table, const std::string value );
+  void insert( const std::string& table, const std::string& value );
 
   std::string m_incomingTable;
   std::string m_outgoingTable;

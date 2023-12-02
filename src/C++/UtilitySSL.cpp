@@ -474,7 +474,11 @@ static void ssl_rand_seed(void)
   /*
   * seed in the current process id (usually just 4 bytes)
   */
-  pid = getpid();
+#ifdef _MSC_VER
+  pid = _getpid( );
+#else
+  pid = getpid( );
+#endif
   l = sizeof(pid);
   RAND_seed((unsigned char *)&pid, l);
   /*
@@ -832,7 +836,11 @@ X509 *readX509(FILE *fp, X509 **x509, passPhraseHandleCallbackType cb, void* pas
     fseek(fp, 0L, SEEK_SET);
     if ((bioS = BIO_new(BIO_s_fd())) == 0)
       return 0;
-    BIO_set_fd(bioS, fileno(fp), BIO_NOCLOSE);
+#ifdef _MSC_VER
+    BIO_set_fd( bioS, _fileno( fp ), BIO_NOCLOSE );
+#else
+    BIO_set_fd( bioS, fileno( fp ), BIO_NOCLOSE );
+#endif
     if ((bioF = BIO_new(BIO_f_base64())) == 0)
     {
       BIO_free(bioS);
@@ -847,7 +855,11 @@ X509 *readX509(FILE *fp, X509 **x509, passPhraseHandleCallbackType cb, void* pas
       fseek(fp, 0L, SEEK_SET);
       if ((bioS = BIO_new(BIO_s_fd())) == 0)
         return 0;
-      BIO_set_fd(bioS, fileno(fp), BIO_NOCLOSE);
+#ifdef _MSC_VER
+      BIO_set_fd( bioS, _fileno( fp ), BIO_NOCLOSE );
+#else
+      BIO_set_fd( bioS, fileno( fp ), BIO_NOCLOSE );
+#endif
       rc = d2i_X509_bio(bioS, 0);
       BIO_free(bioS);
     }
@@ -875,7 +887,11 @@ EVP_PKEY *readPrivateKey(FILE *fp, EVP_PKEY **key,
     fseek(fp, 0L, SEEK_SET);
     if ((bioS = BIO_new(BIO_s_fd())) == 0)
       return 0;
-    BIO_set_fd(bioS, fileno(fp), BIO_NOCLOSE);
+#ifdef _MSC_VER
+    BIO_set_fd( bioS, _fileno( fp ), BIO_NOCLOSE );
+#else
+    BIO_set_fd( bioS, fileno( fp ), BIO_NOCLOSE );
+#endif
     if ((bioF = BIO_new(BIO_f_base64())) == 0)
     {
       BIO_free(bioS);
@@ -889,7 +905,11 @@ EVP_PKEY *readPrivateKey(FILE *fp, EVP_PKEY **key,
       fseek(fp, 0L, SEEK_SET);
       if ((bioS = BIO_new(BIO_s_fd())) == 0)
         return 0;
-      BIO_set_fd(bioS, fileno(fp), BIO_NOCLOSE);
+#ifdef _MSC_VER
+      BIO_set_fd( bioS, _fileno( fp ), BIO_NOCLOSE );
+#else
+      BIO_set_fd( bioS, fileno( fp ), BIO_NOCLOSE );
+#endif
       rc = d2i_PrivateKey_bio(bioS, 0);
       BIO_free(bioS);
     }

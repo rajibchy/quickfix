@@ -309,7 +309,7 @@ void SSLSocketInitiator::doConnect( const SessionID& sessionID, const Dictionary
       return;
     }
     SSL_clear(ssl);
-    BIO *sbio = BIO_new_socket(result, BIO_NOCLOSE); //unfortunately OpenSSL assumes socket is int
+    BIO *sbio = BIO_new_socket(static_cast<int>( result ), BIO_NOCLOSE ); //unfortunately OpenSSL assumes socket is int
     
     if (sbio == 0)
     {
@@ -601,7 +601,7 @@ int SSLSocketInitiator::passwordHandleCallback(char *buf, size_t bufsize, int ve
     return -1;
 
   std::strcpy(buf, m_password.c_str());
-  return m_password.length();
+  return static_cast<int>( m_password.length( ) );
 }
 }
 

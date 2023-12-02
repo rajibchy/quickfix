@@ -227,10 +227,23 @@ void PostgreSQLLog::clear()
 void PostgreSQLLog::backup()
 {
 }
-
-void PostgreSQLLog::insert( const std::string& table, const std::string value )
+static void findFieldValue( const std::string& fixMessage, const std::string& key, std::string& result ) {
+    size_t startIndex = fixMessage.find( key );
+    if ( startIndex == std::string::npos )return;
+    startIndex += key.size( ); // skip find key size
+    // Check if the field value ends with the delimiter
+    size_t endIndex = fixMessage.find( '\001', startIndex );
+    if ( endIndex == std::string::npos ) {
+        // The field value extends to the end of the message
+        result = fixMessage.substr( startIndex );
+    } else {
+        // Normal case: extract the substring between startIndex and endIndex
+        result = fixMessage.substr( startIndex, endIndex - startIndex );
+    }
+}
+void PostgreSQLLog::insert( const std::string& table, const std::string& value )
 {
-  UtcTimeStamp time;
+  UtcTimeStamp time = UtcTimeStamp::now( );
   int year, month, day, hour, minute, second, millis;
   time.getYMD( year, month, day );
   time.getHMS( hour, minute, second, millis );
@@ -244,9 +257,21 @@ void PostgreSQLLog::insert( const std::string& table, const std::string value )
 
   std::stringstream queryString;
   queryString << "INSERT INTO " << table << " "
-  << "(time, beginstring, sendercompid, targetcompid, session_qualifier, text) "
-  << "VALUES ("
-  << "'" << sqlTime << "',";
+      << "(msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text) "
+      << "VALUES (";
+  if ( table != m_eventTable ) {
+      // message log table
+      std::string msg_type;
+      findFieldValue( value, "35=", msg_type );
+      if ( msg_type.empty( ) ) {
+          queryString << "NULL" << ",";
+      } else {
+          queryString << "'" << msg_type << "',";
+      }
+  } else {
+      queryString << "NULL" << ",";
+  }
+  queryString << "'" << sqlTime << "',";
 
   if( m_pSessionID )
   {

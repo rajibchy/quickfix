@@ -185,7 +185,7 @@ bool SSLSocketConnection::processQueue()
 #ifdef _MSC_VER
   struct timeval timeout = { 0, 0 };
   fd_set writeset = m_fds;
-  if( select( 1 + m_socket, 0, &writeset, 0, &timeout ) <= 0)
+  if( select( static_cast<int>( ( 1 + m_socket ) ), 0, &writeset, 0, &timeout ) <= 0 )
     return false;
 #else
   struct pollfd pfd = { m_socket, POLLOUT, 0 };
@@ -199,7 +199,7 @@ bool SSLSocketConnection::processQueue()
   int sent = 0;
   ERR_clear_error();
 
-  sent = SSL_write(m_ssl, msg.c_str() + m_sendLength,  msg.length() - m_sendLength);
+  sent = SSL_write(m_ssl, msg.c_str() + m_sendLength,  static_cast<int>(( msg.length( ) - m_sendLength )));
       
   if (sent > 0)
   {
@@ -288,7 +288,7 @@ bool SSLSocketConnection::read(SSLSocketAcceptor &acceptor, SocketServer& server
       while( !readMessage( message ) )
       {
 #if _MSC_VER
-        int result = select( 1 + m_socket, &readset, 0, 0, &timeout );
+        int result = select( static_cast<int>( ( 1 + m_socket ) ), &readset, 0, 0, &timeout );
 #else
         int result = poll( &pfd, 1, timeout );
 #endif

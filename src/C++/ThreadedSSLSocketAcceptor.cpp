@@ -368,7 +368,7 @@ THREAD_PROC ThreadedSSLSocketAcceptor::socketAcceptorThread(void *p)
     ThreadedSSLSocketConnection *pConnection = new ThreadedSSLSocketConnection(
         socket, ssl, sessions, pAcceptor->getLog());
     SSL_clear(ssl);
-    BIO *sBio = BIO_new_socket(socket, BIO_CLOSE); //unfortunately OpenSSL uses int as socket handle
+    BIO *sBio = BIO_new_socket(static_cast<int>( socket ), BIO_CLOSE ); //unfortunately OpenSSL uses int as socket handle
     SSL_set_bio(ssl, sBio, sBio);
     // TODO - check this
     SSL_set_app_data(ssl, pAcceptor->revocationStore());
@@ -443,7 +443,7 @@ int ThreadedSSLSocketAcceptor::passwordHandleCallback(char *buf, size_t bufsize,
     return -1;
 
   std::strcpy(buf, m_password.c_str());
-  return m_password.length();
+  return static_cast<int>( m_password.length( ) );
 }
 }
 

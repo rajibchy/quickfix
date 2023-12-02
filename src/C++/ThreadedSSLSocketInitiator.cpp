@@ -311,7 +311,7 @@ void ThreadedSSLSocketInitiator::doConnect(const SessionID &s,
       return;
     }
     SSL_clear(ssl);
-    BIO *sbio = BIO_new_socket(socket, BIO_CLOSE); //unfortunately OpenSSL uses int for socket handles
+    BIO *sbio = BIO_new_socket(static_cast<int>( socket ), BIO_CLOSE ); //unfortunately OpenSSL uses int for socket handles
     SSL_set_bio(ssl, sbio, sbio);
 
     ThreadedSSLSocketConnection *pConnection = new ThreadedSSLSocketConnection(
@@ -457,7 +457,7 @@ int ThreadedSSLSocketInitiator::passwordHandleCallback(char *buf, size_t bufsize
     return -1;
 
   std::strcpy(buf, m_password.c_str());
-  return m_password.length();
+  return static_cast<int>( m_password.length( ) );
 }
 }
 

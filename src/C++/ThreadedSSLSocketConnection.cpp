@@ -175,7 +175,7 @@ bool ThreadedSSLSocketConnection::send(const std::string &msg)
     {
       Locker locker(m_mutex);
 
-      sent = SSL_write(m_ssl, msg.c_str() + totalSent, msg.length() - totalSent);
+      sent = SSL_write(m_ssl, msg.c_str() + totalSent, static_cast<int>( ( msg.length( ) - totalSent ) ));
       if (sent <= 0)
         errCodeSSL = SSL_get_error(m_ssl, sent);
     }
@@ -225,7 +225,7 @@ bool ThreadedSSLSocketConnection::read()
   try
   {
     // Wait for input (1 second timeout)
-    int result = select(1 + m_socket, &readset, 0, 0, &timeout);
+    int result = select(static_cast<int>( ( 1 + m_socket ) ), &readset, 0, 0, &timeout );
 
     if (result > 0) // Something to read
     {
