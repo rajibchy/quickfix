@@ -27,10 +27,11 @@
 
 #ifdef HAVE_FTIME
 # include <sys/timeb.h>
+#else
+#include <chrono>
 #endif
 
 namespace FIX {
-
 DateTime DateTime::nowUtc()
 {
 #if defined( _POSIX_SOURCE ) || defined(HAVE_GETTIMEOFDAY)
@@ -42,7 +43,16 @@ DateTime DateTime::nowUtc()
     ftime (&tb);
     return fromUtcTimeT (tb.time, tb.millitm);
 #else
-    return fromUtcTimeT( ::time (0), 0 );
+    //return fromUtcTimeT( ::time( 0 ), 0 );
+
+    // Get the current time point using high-resolution clock
+    auto now = std::chrono::system_clock::now( ); // or std::chrono::high_resolution_clock::now( );
+    // Get the duration since epoch
+    auto duration = now.time_since_epoch( );
+    // Extract time_t value and milliseconds within the current second
+    time_t t = std::chrono::duration_cast<std::chrono::seconds>( duration ).count( );
+    int millis = static_cast<int>( t % 1000 );
+    return fromUtcTimeT( t, millis );
 #endif
 }
 
@@ -57,7 +67,16 @@ DateTime DateTime::nowLocal()
     ftime (&tb);
     return fromLocalTimeT( tb.time, tb.millitm );
 #else
-    return fromLocalTimeT( ::time (0), 0 );
+    //return fromLocalTimeT( ::time( 0 ), 0 );
+    
+    // Get the current time point using high-resolution clock
+    auto now = std::chrono::system_clock::now( ); // or std::chrono::high_resolution_clock::now( );
+    // Get the duration since epoch
+    auto duration = now.time_since_epoch( );
+    // Extract time_t value and milliseconds within the current second
+    time_t t = std::chrono::duration_cast<std::chrono::seconds>( duration ).count( );
+    int millis = static_cast<int>( t % 1000 );
+    return fromLocalTimeT( t, millis );
 #endif
 }
 
