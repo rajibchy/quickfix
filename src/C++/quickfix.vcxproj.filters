@@ -425,5 +425,6 @@
     <ClInclude Include="Values.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="config.h" />
   </ItemGroup>
 </Project>
