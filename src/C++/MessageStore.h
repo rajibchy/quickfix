@@ -84,6 +84,7 @@ public:
 
   virtual void reset( const UtcTimeStamp& now ) EXCEPT ( IOException ) = 0;
   virtual void refresh() EXCEPT ( IOException ) = 0;
+  virtual void backup() EXCEPT( IOException ) = 0;
 };
 /*! @} */
 
@@ -128,7 +129,7 @@ public:
     m_creationTime = now;
   }
   void refresh() EXCEPT ( IOException ) {}
-
+  void backup( ) EXCEPT( IOException ) {}
 private:
   typedef std::map<int, std::string> Messages;
 

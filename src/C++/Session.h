@@ -247,13 +247,10 @@ public:
   int getExpectedTargetNum() { return m_state.getNextTargetMsgSeqNum(); }
 
   Log* getLog() { return &m_state; }
+  void backupMessageStore() { m_state.backupMessage( ); }
   const MessageStore* getStore() { return &m_state; }
-  int getPort( ) {
-      return _port;
-  }
-  const std::string& getHost( ) {
-      return _host;
-  }
+  int getPort( ) { return _port; }
+  const std::string& getHost( ) { return _host; }
   void setHostInfo( const std::string& host, int port ) {
       _port = port;
       _host = std::string( host.c_str( ) );

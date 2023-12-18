@@ -226,6 +226,36 @@ void PostgreSQLLog::clear()
 
 void PostgreSQLLog::backup()
 {
+   std::stringstream msgLogQuery;
+   std::stringstream eventLogQuery;
+   // copy data to backup table
+   msgLogQuery
+       << "INSERT INTO " << m_incomingTable << "_backup(msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text, action_date)"
+       << "SELECT msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text, action_date FROM " << m_incomingTable << " ORDER BY id";
+
+   eventLogQuery
+       << "INSERT INTO " << m_eventTable << "_backup(msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text, action_date)"
+       << "SELECT msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text, action_date FROM " << m_eventTable << " ORDER BY id";
+
+   PostgreSQLQuery msgLog( msgLogQuery.str( ) );
+   PostgreSQLQuery eventLog( eventLogQuery.str( ) );
+   if ( !m_pConnection->execute( msgLog ) )
+       msgLog.throwException( );
+   if(!m_pConnection->execute( eventLog ) )
+       eventLog.throwException( );
+   // truncate table
+   std::stringstream( ).swap( msgLogQuery );
+   std::stringstream( ).swap( eventLogQuery );
+   msgLogQuery
+       << "TRUNCATE TABLE " << m_incomingTable << " RESTART IDENTITY";
+   eventLogQuery
+       << "TRUNCATE TABLE " << m_eventTable << " RESTART IDENTITY";
+   msgLog.reset( msgLogQuery.str( ) );
+   eventLog.reset( eventLogQuery.str( ) );
+   if ( !m_pConnection->execute( msgLog ) )
+       msgLog.throwException( );
+   if ( !m_pConnection->execute( eventLog ) )
+       eventLog.throwException( );
 }
 static void findFieldValue( const std::string& fixMessage, const std::string& key, std::string& result ) {
     size_t startIndex = fixMessage.find( key );

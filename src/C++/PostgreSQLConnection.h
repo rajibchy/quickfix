@@ -44,15 +44,27 @@ class PostgreSQLQuery
 {
 public:
   PostgreSQLQuery( const std::string& query ) 
-  : m_result( 0 ), m_query( query ) 
+  : m_result( 0 ), m_query( query ), m_status( PGRES_EMPTY_QUERY )
   {}
 
   ~PostgreSQLQuery()
   {
-    if( m_result )
-      PQclear( m_result );
+    if( m_result ){
+       PQclear( m_result );
+       m_result = 0;
+    }
+    if ( !m_query.empty( ) ) {
+       std::string( ).swap( m_query );
+    }
   }
-
+  void reset( const std::string& query ) {
+      if ( m_result ) {
+          PQclear( m_result );
+          m_result = 0;
+      }
+      m_status = PGRES_EMPTY_QUERY;
+      std::string( query ).swap( m_query );
+  }
   bool execute( PGconn* pConnection )
   {
     int retry = 0;
@@ -93,7 +105,7 @@ public:
   void throwException() EXCEPT ( IOException )
   {
     if( !success() )
-      throw IOException( "Query failed [" + m_query + "] " );
+      throw IOException( "Query failed [" + m_query + "]\n" + reason() );
   }
 
 private:

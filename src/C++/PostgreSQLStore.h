@@ -51,7 +51,7 @@ public:
   static const short DEFAULT_PORT;
 
   PostgreSQLStoreFactory( const SessionSettings& settings )
-  : m_settings( settings ), m_useSettings( true ), m_useDictionary( false ) 
+  : m_settings( settings ), m_useSettings( true ), m_useDictionary( false ), m_port( DEFAULT_PORT )
   {
     bool poolConnections = false;
     try { poolConnections = settings.get().getBool(POSTGRESQL_STORE_USECONNECTIONPOOL); }
@@ -62,7 +62,7 @@ public:
   }
 
   PostgreSQLStoreFactory( const Dictionary& dictionary )
-  : m_dictionary( dictionary ), m_useSettings( false ), m_useDictionary( true ) 
+  : m_dictionary( dictionary ), m_useSettings( false ), m_useDictionary( true ), m_port( DEFAULT_PORT )
   {
     m_connectionPoolPtr = PostgreSQLConnectionPoolPtr
       ( new PostgreSQLConnectionPool(false) );
@@ -127,6 +127,7 @@ public:
 
   void reset( const UtcTimeStamp& now ) EXCEPT ( IOException );
   void refresh() EXCEPT ( IOException );
+  void backup( ) EXCEPT( IOException );
 
 private:
   void populateCache();

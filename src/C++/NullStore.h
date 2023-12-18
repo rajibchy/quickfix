@@ -94,7 +94,7 @@ public:
     m_creationTime = now;
   }
   void refresh() EXCEPT ( IOException ) {}
-
+  void backup( ) EXCEPT( IOException ) {}
 private:
   int m_nextSenderMsgSeqNum;
   int m_nextTargetMsgSeqNum;

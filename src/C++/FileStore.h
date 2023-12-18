@@ -98,7 +98,7 @@ public:
 
   void reset( const UtcTimeStamp& now ) EXCEPT ( IOException );
   void refresh() EXCEPT ( IOException );
-
+  void backup( ) EXCEPT( IOException ) {}
 private:
 #ifdef _MSC_VER
   typedef std::pair<int, std::size_t> OffsetSize;

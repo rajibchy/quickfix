@@ -79,7 +79,6 @@ Session::Session( std::function<UtcTimeStamp()> timestamper,
 
   if( !checkSessionTime( m_timestamper() ) )
     m_state.reset( m_timestamper() );
-
   addSession( *this );
   m_application.onCreate( m_sessionID );
   m_state.onEvent( "Created session" );
@@ -651,6 +650,14 @@ void Session::disconnect()
 
     m_pResponder->disconnect();
     m_pResponder = 0;
+
+    try {
+       // send connection disconnect notification
+       m_application.onDisconnect( m_sessionID );
+    }
+    catch( std::exception&e ){
+        m_state.onEvent( e.what( ) );
+    }
   }
 
   if ( m_state.receivedLogon() || m_state.sentLogon() )
@@ -1185,10 +1192,15 @@ bool Session::doTargetTooLow( const Message& msg )
 
   if ( !possDupFlag )
   {
+    const MsgType& msgType = FIELD_GET_REF( header, MsgType );
     std::stringstream stream;
     stream << "MsgSeqNum too low, expecting " << getExpectedTargetNum()
            << " but received " << msgSeqNum;
     generateLogout( stream.str() );
+    stream << ", Message Type - " << msgType;
+    if( msgType == MsgType_Logon ){
+        stream << ". Might be failover did not sync sequence number";
+    }
     throw std::logic_error( stream.str() );
   }
 

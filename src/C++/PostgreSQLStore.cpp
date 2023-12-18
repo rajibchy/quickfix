@@ -328,6 +328,31 @@ void PostgreSQLStore::refresh() EXCEPT ( IOException )
   m_cache.reset( UtcTimeStamp::now() );
   populateCache(); 
 }
+void PostgreSQLStore::backup() EXCEPT ( IOException )
+{
+   std::stringstream msgQuery;
+   // copy data to backup table
+   msgQuery
+       << "INSERT INTO messages_backup(beginstring, sendercompid, targetcompid, session_qualifier, msgseqnum, message, action_date, action_time)"
+       << "SELECT beginstring, sendercompid, targetcompid, session_qualifier, msgseqnum, message, action_date, action_time FROM messages WHERE "
+       << "beginstring=" << "'" << m_sessionID.getBeginString( ).getValue( ) << "' and "
+       << "sendercompid=" << "'" << m_sessionID.getSenderCompID( ).getValue( ) << "' and "
+       << "targetcompid=" << "'" << m_sessionID.getTargetCompID( ).getValue( ) << "'"
+       << "ORDER BY msgseqnum";
+   PostgreSQLQuery query( msgQuery.str( ) );
+   if ( !m_pConnection->execute( query ) )
+       query.throwException( );
+   // delete message
+   std::stringstream( ).swap( msgQuery );
+   msgQuery
+       << "DELETE FROM messages WHERE "
+       << "beginstring=" << "'" << m_sessionID.getBeginString( ).getValue( ) << "' and "
+       << "sendercompid=" << "'" << m_sessionID.getSenderCompID( ).getValue( ) << "' and "
+       << "targetcompid=" << "'" << m_sessionID.getTargetCompID( ).getValue( ) << "'";
+   query.reset( msgQuery.str( ) );
+   if ( !m_pConnection->execute( query ) )
+       query.throwException( );
+}
 
 }
 

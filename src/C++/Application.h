@@ -50,6 +50,8 @@ public:
   virtual void onLogon( const SessionID& ) = 0;
   /// Notification of a session logging off or disconnecting
   virtual void onLogout( const SessionID& ) = 0;
+  /// Notification of a session disconnecting
+  virtual void onDisconnect( const SessionID& ) = 0;
   /// Notification of admin message being sent to target
   virtual void toAdmin( Message&, const SessionID& ) = 0;
   /// Notification of app message being sent to target
@@ -86,6 +88,9 @@ public:
   { Locker l( m_mutex ); app().onLogout( sessionID ); }
   void toAdmin( Message& message, const SessionID& sessionID )
   { Locker l( m_mutex ); app().toAdmin( message, sessionID ); }
+  /// Notification of a session disconnecting
+  void onDisconnect( const SessionID& sessionID )
+  { Locker l( m_mutex ); app().onDisconnect( sessionID ); }
   void toApp( Message& message, const SessionID& sessionID )
   EXCEPT ( DoNotSend )
   { Locker l( m_mutex ); app().toApp( message, sessionID ); }
@@ -113,6 +118,8 @@ class NullApplication : public Application
   void onCreate( const SessionID& ) {}
   void onLogon( const SessionID& ) {}
   void onLogout( const SessionID& ) {}
+  /// Notification of a session disconnecting
+  void onDisconnect( const SessionID& ) {}
   void toAdmin( Message&, const SessionID& ) {}
   void toApp( Message&, const SessionID& )
   EXCEPT ( DoNotSend ) {}

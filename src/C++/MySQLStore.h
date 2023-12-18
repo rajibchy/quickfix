@@ -128,7 +128,7 @@ public:
 
   void reset( const UtcTimeStamp& now ) EXCEPT ( IOException );
   void refresh() EXCEPT ( IOException );
-
+  void backup( ) EXCEPT( IOException ) {}
 private:
   void populateCache();
 
