@@ -287,16 +287,17 @@ UtcTimeStamp PostgreSQLStore::getCreationTime() const EXCEPT ( IOException )
 
 void PostgreSQLStore::reset( const UtcTimeStamp& now ) EXCEPT ( IOException )
 {
-  std::stringstream queryString;
-  queryString << "DELETE FROM messages WHERE "
-  << "beginstring=" << "'" << m_sessionID.getBeginString().getValue() << "' and "
-  << "sendercompid=" << "'" << m_sessionID.getSenderCompID().getValue() << "' and "
-  << "targetcompid=" << "'" << m_sessionID.getTargetCompID().getValue() << "' and "
-  << "session_qualifier=" << "'" << m_sessionID.getSessionQualifier() << "'";
+  backup( );
+  //std::stringstream queryString;
+  //queryString << "DELETE FROM messages WHERE "
+  //<< "beginstring=" << "'" << m_sessionID.getBeginString().getValue() << "' and "
+  //<< "sendercompid=" << "'" << m_sessionID.getSenderCompID().getValue() << "' and "
+  //<< "targetcompid=" << "'" << m_sessionID.getTargetCompID().getValue() << "' and "
+  //<< "session_qualifier=" << "'" << m_sessionID.getSessionQualifier() << "'";
 
-  PostgreSQLQuery query( queryString.str() );
-  if( !m_pConnection->execute(query) )
-    query.throwException();
+  //PostgreSQLQuery query( queryString.str() );
+  //if( !m_pConnection->execute(query) )
+  //  query.throwException();
 
   m_cache.reset( now );
   UtcTimeStamp time = m_cache.getCreationTime();
@@ -337,7 +338,8 @@ void PostgreSQLStore::backup() EXCEPT ( IOException )
        << "SELECT beginstring, sendercompid, targetcompid, session_qualifier, msgseqnum, message, action_date, action_time FROM messages WHERE "
        << "beginstring=" << "'" << m_sessionID.getBeginString( ).getValue( ) << "' and "
        << "sendercompid=" << "'" << m_sessionID.getSenderCompID( ).getValue( ) << "' and "
-       << "targetcompid=" << "'" << m_sessionID.getTargetCompID( ).getValue( ) << "'"
+       << "targetcompid=" << "'" << m_sessionID.getTargetCompID( ).getValue( ) << "' and "
+       << "session_qualifier=" << "'" << m_sessionID.getSessionQualifier( ) << "'"
        << "ORDER BY msgseqnum";
    PostgreSQLQuery query( msgQuery.str( ) );
    if ( !m_pConnection->execute( query ) )
@@ -348,7 +350,8 @@ void PostgreSQLStore::backup() EXCEPT ( IOException )
        << "DELETE FROM messages WHERE "
        << "beginstring=" << "'" << m_sessionID.getBeginString( ).getValue( ) << "' and "
        << "sendercompid=" << "'" << m_sessionID.getSenderCompID( ).getValue( ) << "' and "
-       << "targetcompid=" << "'" << m_sessionID.getTargetCompID( ).getValue( ) << "'";
+       << "targetcompid=" << "'" << m_sessionID.getTargetCompID( ).getValue( ) << "' and "
+       << "session_qualifier=" << "'" << m_sessionID.getSessionQualifier( ) << "'";
    query.reset( msgQuery.str( ) );
    if ( !m_pConnection->execute( query ) )
        query.throwException( );
