@@ -54,6 +54,8 @@ public:
   virtual void onDisconnect( const SessionID& ) = 0;
   /// Notification of admin message being sent to target
   virtual void toAdmin( Message&, const SessionID& ) = 0;
+  /// Notification of app reject message being sent to target
+  virtual void onRejectMessage(const Message&, const SessionID&, const std::string& ) = 0;
   /// Notification of app message being sent to target
   virtual void toApp( Message&, const SessionID& )
   EXCEPT ( DoNotSend ) = 0;
@@ -100,7 +102,8 @@ public:
   void fromApp( const Message& message, const SessionID& sessionID )
   EXCEPT ( FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType )
   { Locker l( m_mutex ); app().fromApp( message, sessionID ); }
-
+  void onRejectMessage( const Message& message, const SessionID& sessionID, const std::string& text )
+  { Locker l( m_mutex ); app().onRejectMessage( message, sessionID, text ); };
   Mutex m_mutex;
 
   Application& app() { return m_app; }
@@ -127,6 +130,7 @@ class NullApplication : public Application
   EXCEPT ( FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon ) {}
   void fromApp( const Message&, const SessionID& )
   EXCEPT ( FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType ) {}
+  virtual void onRejectMessage( const Message&, const SessionID&, const std::string& ) {}
 };
 /*! @} */
 }

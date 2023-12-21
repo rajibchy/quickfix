@@ -464,6 +464,7 @@ struct DateTime
 
   /// Return the current wall-clock time as a local DateTime
   static DateTime nowLocal();
+  static int nowMiles( );
 
   /// Convert a time_t and optional milliseconds to a DateTime
   static DateTime fromUtcTimeT( time_t t, int millis = 0 ) 

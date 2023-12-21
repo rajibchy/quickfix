@@ -35,6 +35,18 @@ Session::SessionIDs Session::s_sessionIDs;
 Session::Sessions Session::s_registered;
 Mutex Session::s_mutex;
 
+static void createTestReqId( std::string& reqId ) {
+    FIX::UtcTimeStamp time = FIX::UtcTimeStamp::now( );
+    int year, month, day, hour, minute, second, millis;
+    time.getYMD( year, month, day );
+    time.getHMS( hour, minute, second, millis );
+
+    char timeStamp[100];
+    STRING_SPRINTF( timeStamp, "%d-%02d-%02d %02d:%02d:%02d.%03d",
+        year, month, day, hour, minute, second, millis );
+    std::string( timeStamp ).swap( reqId );
+}
+
 #define LOGEX( method ) try { method; } catch( std::exception& e ) \
   { m_state.onEvent( e.what() ); }
 
@@ -167,9 +179,11 @@ void Session::next( const UtcTimeStamp& now )
     {
       if ( m_state.needTestRequest( m_timestamper() ) )
       {
-        generateTestRequest( "TEST" );
+        std::string testId;
+        createTestReqId( testId );
+        generateTestRequest( testId );
         m_state.testRequest( m_state.testRequest() + 1 );
-        m_state.onEvent( "Sent test request TEST" );
+        m_state.onEvent( "Sent test request id - " + testId );
       }
       else if ( m_state.needHeartbeat( m_timestamper() ) )
       {
@@ -808,6 +822,27 @@ void Session::generateHeartbeat( const Message& testRequest )
   sendRaw( heartbeat );
 }
 
+bool Session::sendTestRequest( bool forceTest ) {
+    if ( !isLoggedOn( ) ) {
+        if ( !forceTest )return false;
+        m_state.sentLogon( true );
+        m_state.receivedLogon( true );
+    }
+    std::string testId;
+    createTestReqId( testId );
+    Message testRequest = newMessage( MsgType( MsgType_TestRequest ) );
+
+    fill( testRequest.getHeader( ) );
+    TestReqID testReqID( testId );
+    testRequest.setField( testReqID );
+
+    bool result = sendRaw( testRequest );
+    if ( result ) {
+        m_state.testRequest( m_state.testRequest( ) + 1 );
+        m_state.onEvent( "Sent custom test request id - " + testId );
+    }
+    return result;
+}
 void Session::generateTestRequest( const std::string& id )
 {
   Message testRequest = newMessage( MsgType( MsgType_TestRequest ) );
@@ -892,7 +927,6 @@ void Session::generateReject( const Message& message, int err, int field )
       reason = SessionRejectReason_INCORRECT_NUMINGROUP_COUNT_FOR_REPEATING_GROUP_TEXT;
       break;
   };
-
   if ( reason && ( field || err == SessionRejectReason_INVALID_TAG_NUMBER ) )
   {
     populateRejectReason( reject, field, reason );
@@ -912,6 +946,11 @@ void Session::generateReject( const Message& message, int err, int field )
     throw std::runtime_error( "Tried to send a reject while not logged on" );
 
   sendRaw( reject );
+  try {
+      m_application.onRejectMessage( message, m_sessionID, reason == NULL ? "Rejected" : reason );
+  } catch ( std::exception& e ) {
+      m_state.onEvent( e.what( ) );
+  }
 }
 
 void Session::generateReject( const Message& message, const std::string& text )
@@ -937,6 +976,11 @@ void Session::generateReject( const Message& message, const std::string& text )
   sendRaw( reject );
   m_state.onEvent( "Message " + msgSeqNum.getString()
                    + " Rejected: " + text );
+  try {
+      m_application.onRejectMessage( message, m_sessionID, text );
+  } catch ( std::exception& e ) {
+      m_state.onEvent( e.what( ) );
+  }
 }
 
 void Session::generateBusinessReject( const Message& message, int err, int field )

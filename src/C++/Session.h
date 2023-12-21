@@ -245,7 +245,7 @@ public:
 
   int getExpectedSenderNum() { return m_state.getNextSenderMsgSeqNum(); }
   int getExpectedTargetNum() { return m_state.getNextTargetMsgSeqNum(); }
-
+  bool sendTestRequest( bool forceTest = true );
   Log* getLog() { return &m_state; }
   void backupMessageStore() { m_state.backupMessage( ); }
   const MessageStore* getStore() { return &m_state; }

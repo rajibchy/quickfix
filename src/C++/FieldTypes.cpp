@@ -27,9 +27,8 @@
 
 #ifdef HAVE_FTIME
 # include <sys/timeb.h>
-#else
+#endif //
 #include <chrono>
-#endif
 
 namespace FIX {
 DateTime DateTime::nowUtc()
@@ -55,7 +54,15 @@ DateTime DateTime::nowUtc()
     return fromUtcTimeT( t, millis );
 #endif
 }
-
+int DateTime::nowMiles( ) {
+    // Get the current time point using high-resolution clock
+    auto now = std::chrono::system_clock::now( ); // or std::chrono::high_resolution_clock::now( );
+    // Get the duration since epoch
+    auto duration = now.time_since_epoch( );
+    // Extract time_t value and milliseconds within the current second
+    time_t t = std::chrono::duration_cast<std::chrono::seconds>( duration ).count( );
+    return static_cast<int>( t % 1000 );
+}
 DateTime DateTime::nowLocal()
 {
 #if defined( _POSIX_SOURCE ) || defined(HAVE_GETTIMEOFDAY)
