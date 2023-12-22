@@ -36,7 +36,7 @@ Session::Sessions Session::s_registered;
 Mutex Session::s_mutex;
 
 static void createTestReqId( std::string& reqId ) {
-    FIX::UtcTimeStamp time = FIX::UtcTimeStamp::now( );
+    UtcTimeStamp time = UtcTimeStamp::now( );
     int year, month, day, hour, minute, second, millis;
     time.getYMD( year, month, day );
     time.getHMS( hour, minute, second, millis );
@@ -44,7 +44,7 @@ static void createTestReqId( std::string& reqId ) {
     char timeStamp[100];
     STRING_SPRINTF( timeStamp, "%d-%02d-%02d %02d:%02d:%02d.%03d",
         year, month, day, hour, minute, second, millis );
-    std::string( timeStamp ).swap( reqId );
+    reqId = timeStamp; // Copy the contents of timeStamp
 }
 
 #define LOGEX( method ) try { method; } catch( std::exception& e ) \
