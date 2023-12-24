@@ -355,6 +355,7 @@ namespace FIX
   const char OrdStatus_NEW = '0';
   const char OrdStatus_PARTIALLY_FILLED = '1';
   const char OrdStatus_FILLED = '2';
+  const char OrdStatus_UNPLACED = 'U';
   const char OrdStatus_DONE_FOR_DAY = '3';
   const char OrdStatus_CANCELED = '4';
   const char OrdStatus_REPLACED = '5';
@@ -1373,6 +1374,7 @@ namespace FIX
   const int BusinessRejectReason_THROTTLE_LIMIT_EXCEEDED = 8;
   const int BusinessRejectReason_THROTTLE_LIMIT_EXCEEDED_SESSION_DISCONNECTED = 9;
   const int BusinessRejectReason_THROTTLED_MESSAGES_REJECTED_ON_REQUEST = 10;
+  const int BusinessRejectReason_UNKNOWN = 99;
   const char MsgDirection_RECEIVE = 'R';
   const char MsgDirection_SEND = 'S';
   const char DiscretionInst_RELATED_TO_DISPLAYED_PRICE = '0';
