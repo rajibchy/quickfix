@@ -40,9 +40,11 @@
 #include <map>
 #include <string>
 
+
 namespace FIX
 {
 class Client;
+using SessionPtr = std::unique_ptr<Session>;
 
 /**
  * Base for classes which act as an initiator for establishing connections.
@@ -80,7 +82,9 @@ public:
   const Dictionary* const getSessionSettings( const SessionID& sessionID ) const;
 
   bool has( const SessionID& id )
-  { return m_sessions.find( id ) != m_sessions.end(); }
+  { 
+      return Session::has( id );
+  }
 
   bool isStopped() { return m_stop; }
 
@@ -125,9 +129,9 @@ private:
 
   typedef std::set < SessionID > SessionIDs;
   typedef std::map < SessionID, int > SessionState;
-  typedef std::map < SessionID, Session* > Sessions;
+  //typedef std::map < SessionID, Session* > Sessions;
 
-  Sessions m_sessions;
+  //Sessions m_sessions;
   SessionIDs m_sessionIDs;
   SessionIDs m_pending;
   SessionIDs m_connected;

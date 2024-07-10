@@ -34,12 +34,11 @@
 #include "Exceptions.h"
 #include <map>
 #include <string>
-
 namespace FIX
 {
 class Client;
 class Session;
-
+using SessionPtr = std::unique_ptr<Session>;
 /**
  * Base for classes which act as an acceptor for incoming connections.
  *
@@ -107,7 +106,7 @@ private:
   static THREAD_PROC startThread( void* p );
 
   typedef std::set<SessionID> SessionIDs;
-  typedef std::map<SessionID, Session*> Sessions;
+  typedef std::map<SessionID, SessionPtr> Sessions;
 
   thread_id m_threadid;
   Sessions m_sessions;

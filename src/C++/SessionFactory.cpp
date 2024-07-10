@@ -119,12 +119,16 @@ Session* SessionFactory::create( const SessionID& sessionID,
     heartBtInt = HeartBtInt( settings.getInt( HEARTBTINT ) );
     if ( heartBtInt <= 0 ) throw ConfigError( "Heartbeat must be greater than zero" );
   }
-
-  std::unique_ptr<Session> pSession;
-  pSession.reset( 
-    new Session( [](){ return UtcTimeStamp::now(); }, m_application, m_messageStoreFactory,
-                 sessionID, dataDictionaryProvider, sessionTimeRange,
-                 heartBtInt, m_pLogFactory ) );
+  Session* pSession = new Session( []( ) { return UtcTimeStamp::now( ); }, m_application, m_messageStoreFactory,
+      sessionID, dataDictionaryProvider, sessionTimeRange,
+      heartBtInt, m_pLogFactory );
+  //std::unique_ptr<Session> pSession = std::make_unique<Session>( []( ) { return UtcTimeStamp::now( ); }, m_application, m_messageStoreFactory,
+  //    sessionID, dataDictionaryProvider, sessionTimeRange,
+  //    heartBtInt, m_pLogFactory );
+  //pSession.reset( 
+  //  new Session( [](){ return UtcTimeStamp::now(); }, m_application, m_messageStoreFactory,
+  //               sessionID, dataDictionaryProvider, sessionTimeRange,
+  //               heartBtInt, m_pLogFactory ) );
 
   pSession->setSenderDefaultApplVerID(defaultApplVerID);
 
@@ -201,7 +205,7 @@ Session* SessionFactory::create( const SessionID& sessionID,
   if ( settings.has( SEND_NEXT_EXPECTED_MSG_SEQ_NUM ) )
     pSession->setSendNextExpectedMsgSeqNum( settings.getBool( SEND_NEXT_EXPECTED_MSG_SEQ_NUM ) );
 
-  return pSession.release();
+  return pSession;
 }
 
 void SessionFactory::destroy( Session* pSession )

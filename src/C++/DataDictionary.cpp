@@ -63,19 +63,47 @@ DataDictionary::DataDictionary( const DataDictionary& copy )
 {
   *this = copy;
 }
-
 DataDictionary::~DataDictionary()
 {
-  FieldToGroup::iterator i;
-  for ( i = m_groups.begin(); i != m_groups.end(); ++i )
-  {
-    const FieldPresenceMap& presenceMap = i->second;
+  //for (auto& group : m_groups)
+  //{
+  //  FieldPresenceMap& presenceMap = group.second; // Remove 'const' here
 
-    FieldPresenceMap::const_iterator iter = presenceMap.begin();
-    for ( ; iter != presenceMap.end(); ++iter )
-      delete iter->second.second;
-  }
+  //  for (auto& item : presenceMap)
+  //  {
+  //    if (item.second.second != nullptr)
+  //    {
+  //      // Logging before deletion
+  //      //std::cout << "Deleting pointer: " << item.second.second << std::endl;
+  //      delete item.second.second;
+  //      item.second.second = nullptr; // Avoid dangling pointer
+  //    }
+  //    else
+  //    {
+  //      // Logging null pointer case
+  //      std::cout << "Pointer is null." << std::endl;
+  //    }
+  //  }
+  //  presenceMap.clear( );
+  //}
+  m_groups.clear( );
 }
+//DataDictionary::~DataDictionary()
+//{
+//  FieldToGroup::iterator i;
+//  for ( i = m_groups.begin(); i != m_groups.end(); ++i )
+//  {
+//    const FieldPresenceMap& presenceMap = i->second;
+//
+//    FieldPresenceMap::const_iterator iter = presenceMap.begin();
+//    for ( ; iter != presenceMap.end( ); ++iter ) {
+//        if ( iter->second.second != nullptr ) {
+//            delete iter->second.second;
+//            iter->second.second = nullptr;
+//        }
+//    }
+//  }
+//}
 
 DataDictionary& DataDictionary::operator=( const DataDictionary& rhs )
 {

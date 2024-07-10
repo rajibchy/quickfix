@@ -80,44 +80,82 @@ void Initiator::initialize() EXCEPT ( ConfigError )
     if ( m_settings.get( *i ).getString( "ConnectionType" ) == "initiator" )
     {
       m_sessionIDs.insert( *i );
-      m_sessions[ *i ] = factory.create( *i, m_settings.get( *i ) );
+      factory.create( *i, m_settings.get( *i ) ); // session global keep the trace
+      //m_sessions[ *i ] = factory.create( *i, m_settings.get( *i ) );
+      //std::unique_ptr<Session> pSession;
+      //pSession.reset( factory.create( *i, m_settings.get( *i ) ) );
+      //m_sessions.emplace( *i, std::move( pSession ) );
+      //m_sessions[*i] = std::move( pSession );
+
       setDisconnected( *i );
     }
   }
 
-  if ( !m_sessions.size() )
+  if ( !Session::size() )
     throw ConfigError( "No sessions defined for initiator" );
 }
 
 Initiator::~Initiator()
 {
-  Sessions::iterator i;
-  for ( i = m_sessions.begin(); i != m_sessions.end(); ++i )
-    delete i->second;
-
-  if( m_pLogFactory && m_pLog )
-    m_pLogFactory->destroy( m_pLog );
+  //Sessions::iterator i;
+  //for ( i = m_sessions.begin(); i != m_sessions.end(); ++i )
+  //{
+  //  if (i->second != nullptr)
+  //  {
+  //    // Logging before deletion
+  //    std::cout << "Deleting session: " << i->second << std::endl;
+  //    delete i->second;
+  //    i->second = nullptr; // Avoid dangling pointer
+  //  }
+  //  else
+  //  {
+  //    // Logging null pointer case
+  //    std::cout << "Session pointer is null." << std::endl;
+  //  }
+  //}
+  m_sessionIDs.clear( );
+  m_pending.clear( );
+  m_connected.clear( );
+  m_disconnected.clear( );
+  //m_sessionState.clear( );
+  //m_sessions.clear( );
+  if (m_pLogFactory!= nullptr && m_pLog!= nullptr )
+  {
+    m_pLogFactory->destroy(m_pLog);
+    m_pLog = nullptr;
+    m_pLogFactory = nullptr;
+  }
 }
 
 Session* Initiator::getSession( const SessionID& sessionID,
                                 Responder& responder )
 {
-  Sessions::iterator i = m_sessions.find( sessionID );
-  if ( i != m_sessions.end() )
-  {
-    i->second->setResponder( &responder );
-    return i->second;
+  Session* pSession=  Session::lookupSession( sessionID );
+  if ( pSession != nullptr ) {
+      pSession->setResponder( &responder );
+      return pSession;
   }
+  //Sessions::iterator i = m_sessions.find( sessionID );
+  //if ( i != m_sessions.end() )
+  //{
+  //  i->second->setResponder( &responder );
+  //  return i->second.get( );
+  //}
   return 0;
 }
 
 Session* Initiator::getSession( const SessionID& sessionID ) const
 {
-  Sessions::const_iterator i = m_sessions.find( sessionID );
-  if( i != m_sessions.end() )
-    return i->second;
-  else
+    Session* pSession = Session::lookupSession( sessionID );
+    if ( pSession != nullptr ) {
+        return pSession;
+    }
     return 0;
+  //Sessions::const_iterator i = m_sessions.find( sessionID );
+  //if( i != m_sessions.end() )
+  //  return i->second.get();
+  //else
+  //  return 0;
 }
 
 const Dictionary* const Initiator::getSessionSettings( const SessionID& sessionID ) const

@@ -86,7 +86,11 @@ void Acceptor::initialize() EXCEPT ( ConfigError )
     if ( m_settings.get( *i ).getString( CONNECTION_TYPE ) == "acceptor" )
     {
       m_sessionIDs.insert( *i );
-      m_sessions[ *i ] = factory.create( *i, m_settings.get( *i ) );
+      //m_sessions[ *i ] = factory.create( *i, m_settings.get( *i ) );
+      std::unique_ptr<Session> pSession;
+      pSession.reset( factory.create( *i, m_settings.get( *i ) ) );
+      m_sessions.emplace( *i, std::move( pSession ) );
+      //m_sessions[*i] = std::move( pSession );
     }
   }
 
@@ -96,9 +100,10 @@ void Acceptor::initialize() EXCEPT ( ConfigError )
 
 Acceptor::~Acceptor()
 {
-  Sessions::iterator i;
-  for ( i = m_sessions.begin(); i != m_sessions.end(); ++i )
-    delete i->second;
+  //Sessions::iterator i;
+  //for ( i = m_sessions.begin(); i != m_sessions.end(); ++i )
+  //  delete i->second;
+  m_sessions.clear( );
 
   if( m_pLogFactory && m_pLog )
     m_pLogFactory->destroy( m_pLog );
@@ -127,7 +132,7 @@ Session* Acceptor::getSession
     if ( i != m_sessions.end() )
     {
       i->second->setResponder( &responder );
-      return i->second;
+      return i->second.get();
     }
   }
   catch ( FieldNotFound& ) {}
@@ -138,7 +143,7 @@ Session* Acceptor::getSession( const SessionID& sessionID ) const
 {
   Sessions::const_iterator i = m_sessions.find( sessionID );
   if( i != m_sessions.end() )
-    return i->second;
+    return i->second.get( );
   else
     return 0;
 }
@@ -225,9 +230,9 @@ void Acceptor::stop( bool force )
 
   std::vector<Session*> enabledSessions;
 
-  Sessions sessions = m_sessions;
-  Sessions::iterator i = sessions.begin();
-  for ( ; i != sessions.end(); ++i )
+  //Sessions sessions = m_sessions;
+  Sessions::iterator i = m_sessions.begin();
+  for ( ; i != m_sessions.end(); ++i )
   {
     Session* pSession = Session::lookupSession(i->first);
     if( pSession && pSession->isEnabled() )
@@ -256,8 +261,8 @@ void Acceptor::stop( bool force )
 
 bool Acceptor::isLoggedOn()
 {
-  Sessions sessions = m_sessions;
-  for ( Sessions::value_type const& sessionIDWithSession : sessions )
+  //Sessions sessions = m_sessions;
+  for ( Sessions::value_type const& sessionIDWithSession : m_sessions )
   {
     if( sessionIDWithSession.second->isLoggedOn() )
       return true;

@@ -98,7 +98,7 @@ Session::Session( std::function<UtcTimeStamp()> timestamper,
 
 Session::~Session()
 {
-  removeSession( *this );
+  //removeSession( *this );
   m_messageStoreFactory.destroy( m_state.store() );
   if ( m_pLogFactory && m_state.log() )
     m_pLogFactory->destroy( m_state.log() );
@@ -438,7 +438,8 @@ void Session::generateRetransmits(int beginSeqNo, int endSeqNo)
   for ( i = messages.begin(); i != messages.end(); ++i )
   {
     appMessageJustSent = false;
-    std::unique_ptr<FIX::Message> pMsg;
+    Message* pMsg = nullptr;
+    //std::unique_ptr<FIX::Message> pMsg;
     std::string strMsgType;
     const DataDictionary& sessionDD =
       m_dataDictionaryProvider.getSessionDataDictionary(m_sessionID.getBeginString());
@@ -461,32 +462,32 @@ void Session::generateRetransmits(int beginSeqNo, int endSeqNo)
       const DataDictionary& applicationDD =
           m_dataDictionaryProvider.getApplicationDataDictionary(applVerID);
       if (strMsgType.empty())
-        pMsg.reset( new Message( *i, sessionDD, applicationDD, m_validateLengthAndChecksum ));
+          pMsg =  new Message( *i, sessionDD, applicationDD, m_validateLengthAndChecksum );
       else
       {
         const message_order & headerOrder = sessionDD.getHeaderOrderedFields();
         const message_order & trailerOrder = sessionDD.getTrailerOrderedFields();
         const message_order & messageOrder = applicationDD.getMessageOrderedFields(strMsgType);
-        pMsg.reset( new Message( headerOrder, trailerOrder, messageOrder, *i, sessionDD, applicationDD, m_validateLengthAndChecksum ));
+        pMsg =  new Message( headerOrder, trailerOrder, messageOrder, *i, sessionDD, applicationDD, m_validateLengthAndChecksum );
       }
     }
     else
     {
       if (strMsgType.empty())
-        pMsg.reset( new Message( *i, sessionDD, m_validateLengthAndChecksum ));
+          pMsg =  new Message( *i, sessionDD, m_validateLengthAndChecksum );
       else
       {
         const message_order & headerOrder = sessionDD.getHeaderOrderedFields();
         const message_order & trailerOrder = sessionDD.getTrailerOrderedFields();
         const message_order & messageOrder = sessionDD.getMessageOrderedFields(strMsgType);
-        pMsg.reset(new Message(headerOrder, trailerOrder, messageOrder, *i, sessionDD, m_validateLengthAndChecksum ));
+        pMsg = new Message(headerOrder, trailerOrder, messageOrder, *i, sessionDD, m_validateLengthAndChecksum );
       }
     }
 
-    Message & msg = *pMsg;
+    //Message* msg = pMsg.release();
 
-    msg.getHeader().getField( msgSeqNum );
-    msg.getHeader().getField( msgType );
+    pMsg->getHeader().getField( msgSeqNum );
+    pMsg->getHeader().getField( msgType );
 
     if( (current != msgSeqNum) && !begin )
       begin = current;
@@ -497,10 +498,10 @@ void Session::generateRetransmits(int beginSeqNo, int endSeqNo)
     }
     else
     {
-      if ( resend( msg ) )
+      if ( resend( *pMsg ) )
       {
         if ( begin ) generateSequenceReset( begin, msgSeqNum );
-        send( msg.toString(messageString) );
+        send( pMsg->toString(messageString) );
         m_state.onEvent( "Resending Message: "
                          + IntConvertor::convert( msgSeqNum ) );
         begin = 0;
@@ -509,6 +510,7 @@ void Session::generateRetransmits(int beginSeqNo, int endSeqNo)
       else
       { if ( !begin ) begin = msgSeqNum; }
     }
+    delete pMsg;
     current = msgSeqNum + 1;
   }
   if ( begin )
@@ -759,7 +761,31 @@ void Session::generateLogon( const Message& aLogon )
   sendRaw( logon );
   m_state.sentLogon( true );
 }
+void Session::generateResendRequest( Message& msg ) {
+    BeginSeqNo curSeqNo( (int)getExpectedTargetNum( ) );
+    const Header& header = msg.getHeader( );
+    auto const& beginSeqNo = msg.getField<FIX::BeginSeqNo>( );
+    auto const& endSeqNo = msg.getField<FIX::EndSeqNo>( );
+    if ( beginSeqNo > curSeqNo || endSeqNo > curSeqNo || beginSeqNo <= endSeqNo ) {
+        m_state.onEvent( "Rejected Custom ResendRequest FROM: "
+            + IntConvertor::convert( beginSeqNo ) +
+            " TO: " + IntConvertor::convert( endSeqNo ) +
+            " BeginSeqNo must be > Current Seq No: " +
+            IntConvertor::convert( curSeqNo )
+        );
+        return;
+    }
+    
+    fill( msg.getHeader( ) );
+    sendRaw( msg );
+    m_state.onEvent( "Sent Custom ResendRequest FROM: "
+        + IntConvertor::convert( beginSeqNo ) +
+        " TO: " + IntConvertor::convert( endSeqNo ) +
+        " AND Current Seq No: " + IntConvertor::convert( curSeqNo )
+    );
 
+    m_state.resendRange( beginSeqNo, endSeqNo > 0 ? endSeqNo : curSeqNo - 1 );
+}
 void Session::generateResendRequest( const BeginString& beginString, const MsgSeqNum& msgSeqNum )
 {
   Message resendRequest = newMessage( MsgType( MsgType_ResendRequest ) );
@@ -1537,13 +1563,20 @@ bool Session::doesSessionExist( const SessionID& sessionID )
   Locker locker( s_mutex );
   return s_sessions.end() != s_sessions.find( sessionID );
 }
-
+size_t Session::size( ) {
+    Locker locker( s_mutex );
+    return s_sessions.size( );
+}
+bool Session::has( const SessionID& id ) {
+    Locker locker( s_mutex );
+    return s_sessions.find( id ) != s_sessions.end( );
+}
 Session* Session::lookupSession( const SessionID& sessionID )
 {
   Locker locker( s_mutex );
   Sessions::iterator find = s_sessions.find( sessionID );
   if ( find != s_sessions.end() )
-    return find->second;
+    return find->second.get();
   else
     return 0;
 }
@@ -1585,7 +1618,10 @@ Session* Session::registerSession( const SessionID& sessionID )
   Session* pSession = lookupSession( sessionID );
   if ( pSession == 0 ) return 0;
   if ( isSessionRegistered( sessionID ) ) return 0;
-  s_registered[ sessionID ] = pSession;
+  //s_registered[ sessionID ] = pSession;
+  std::unique_ptr<Session> ptr;
+  ptr.reset( pSession );
+  s_registered.emplace( sessionID, std::move( ptr ) );
   return pSession;
 }
 
@@ -1607,7 +1643,10 @@ bool Session::addSession( Session& s )
   Sessions::iterator it = s_sessions.find( s.m_sessionID );
   if ( it == s_sessions.end() )
   {
-    s_sessions[ s.m_sessionID ] = &s;
+    std::shared_ptr<Session> ptr;
+    ptr.reset( &s );
+    s_sessions.emplace( s.m_sessionID, std::move( ptr ) );
+    //s_sessions[ s.m_sessionID ] = &s;
     s_sessionIDs.insert( s.m_sessionID );
     return true;
   }

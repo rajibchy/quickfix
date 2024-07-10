@@ -40,6 +40,7 @@
 #include <map>
 #include <queue>
 #include <functional>
+#include <memory>
 
 namespace FIX
 {
@@ -102,6 +103,8 @@ public:
 
   static std::set<SessionID> getSessions();
   static bool doesSessionExist( const SessionID& );
+  static size_t size( );
+  static bool has( const SessionID& id );
   static Session* lookupSession( const SessionID& );
   static Session* lookupSession( const std::string&, bool reverse = false );
   static bool isSessionRegistered( const SessionID& );
@@ -255,11 +258,11 @@ public:
       _port = port;
       _host = std::string( host.c_str( ) );
   }
-
+  void generateResendRequest( Message& );
 private:
   int _port;
   std::string _host;
-  typedef std::map<SessionID, Session*> Sessions;
+  typedef std::map<SessionID, std::shared_ptr<Session>> Sessions;
   typedef std::set<SessionID> SessionIDs;
 
   static bool addSession( Session& );

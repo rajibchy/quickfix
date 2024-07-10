@@ -29,7 +29,7 @@
 #include "Log.h"
 #include "Exceptions.h"
 #include "Dictionary.h"
-
+#include <memory>
 namespace FIX
 {
 class SessionID;
@@ -37,7 +37,6 @@ class Session;
 class Application;
 class MessageStoreFactory;
 class DataDictionaryProvider;
-
 /** Responsible for creating Session objects.  This factory will use
  *  QuickFIX SessionID, Dictionary settings, MessageStoreFactory, and
  *  optional LogFactory to create all the required sessions for an
