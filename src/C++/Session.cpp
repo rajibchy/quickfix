@@ -689,7 +689,7 @@ namespace FIX {
             " AND Current Seq No: " + IntConvertor::convert( curSeqNo )
         );
 
-        m_state.resendRange( beginSeqNo, endSeqNo > 0 ? endSeqNo : curSeqNo - 1 );
+        m_state.resendRange( beginSeqNo, endSeqNo > 0 ? endSeqNo : FIX::EndSeqNo(curSeqNo - 1));
     }
     void Session::generateResendRequest( const BeginString& beginString, const MsgSeqNum& msgSeqNum ) {
         Message resendRequest = newMessage( MsgType( MsgType_ResendRequest ) );
