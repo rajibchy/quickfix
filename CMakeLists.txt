@@ -1,15 +1,15 @@
-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
-set (quickfix_PROJECT_NAME quickfix)
+set (quickfix_PROJECT_NAME quickfix LANGUAGES C CXX)
 
-project(${quickfix_PROJECT_NAME} VERSION 0.1 LANGUAGES CXX C)
+project(${quickfix_PROJECT_NAME} VERSION 0.1)
 message("-- Project name ${CMAKE_PROJECT_NAME}")
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED OFF)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if( CMAKE_CXX_STANDARD EQUAL 17 )
-  option( HAVE_CXX17 "Using C++17" ON)
+if( CMAKE_CXX_STANDARD EQUAL 20 )
+  option( HAVE_CXX20 "Using C++20" ON)
 endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
@@ -32,38 +32,33 @@ option(QUICKFIX_TESTS "Build quickfix tests" ON)
 
 #Make sure that a previous config.h has not undefined HAVE_SSL
 if(HAVE_SSL)
-# Can set location explicitly, example, cmake -DOPENSSL_ROOT_DIR=/usr/local/ssl -DOPENSSL_LIBRARIES=/usr/local/ssl/lib
-
-find_package(OpenSSL REQUIRED)
-include_directories(${OPENSSL_INCLUDE_DIR})
-
-message("-- OPENSSL_INCLUDE_DIR: ${OPENSSL_INCLUDE_DIR}")
-message("-- OPENSSL_LIBRARIES: ${OPENSSL_LIBRARIES}")
-message("-- OPENSSL_ROOT_DIR: ${OPENSSL_ROOT_DIR}")
-
-message("-- Building with SSL")
+  # Can set location explicitly, example, cmake -DOPENSSL_ROOT_DIR=/usr/local/ssl -DOPENSSL_LIBRARIES=/usr/local/ssl/lib
+  find_package(OpenSSL REQUIRED)
+  include_directories(${quickfix_PROJECT_NAME} PRIVATE ${OPENSSL_INCLUDE_DIR})
+  message("-- OPENSSL_INCLUDE_DIR: ${OPENSSL_INCLUDE_DIR}")
+  message("-- OPENSSL_LIBRARIES: ${OPENSSL_LIBRARIES}")
+  message("-- OPENSSL_ROOT_DIR: ${OPENSSL_ROOT_DIR}")
+  message("-- Building with SSL")
 endif()
 
 if(HAVE_MYSQL)
-find_package(MySQL REQUIRED)
-include_directories(${MYSQL_INCLUDE_DIR})
-
-message("-- Building with MySQL")
+  find_package(MySQL REQUIRED)
+  include_directories(${quickfix_PROJECT_NAME} PRIVATE ${MYSQL_INCLUDE_DIR})
+  message("-- Building with MySQL")
 endif()
 
 if(HAVE_POSTGRESQL)
-find_package(PostgreSQL REQUIRED)
-include_directories(${PostgreSQL_INCLUDE_DIRS})
-
-message("-- Building with POSTGRESQL")
+  find_package(PostgreSQL REQUIRED)
+  include_directories(${quickfix_PROJECT_NAME} PRIVATE ${PostgreSQL_INCLUDE_DIRS})
+  message("-- Building with POSTGRESQL ${PostgreSQL_INCLUDE_DIRS}")
 endif()
 
 if (HAVE_PYTHON)
   find_package(PythonLibs REQUIRED)
-  include_directories(${PYTHON_INCLUDE_DIRS})
+  include_directories(${quickfix_PROJECT_NAME} PRIVATE ${PYTHON_INCLUDE_DIRS})
 elseif (HAVE_PYTHON3)
   find_package(PythonLibs 3 REQUIRED)
-  include_directories(${PYTHON_INCLUDE_DIRS})
+  include_directories(${quickfix_PROJECT_NAME} PRIVATE ${PYTHON_INCLUDE_DIRS})
 endif ()
 
 add_subdirectory(src)
@@ -74,7 +69,7 @@ endif()
 
 if (QUICKFIX_TESTS)
   if( WIN32)
-    add_subdirectory(test)
+    add_subdirectory(test)   
   endif()
 endif()
 
