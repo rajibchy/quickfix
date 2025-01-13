@@ -15,15 +15,49 @@ make install
 
 #link with quickfix
 # Set QuickFix root directory and find the OpenSSL package
+# Specify the PostgreSQL root (optional)
+set(PostgreSQL_ROOT "/usr")
 
-set(QUICKFIX_LIBRARIES /usr/local/lib/libquickfix.a)
+# Find PostgreSQL
+# Find PostgreSQL and explicitly link the static libpq.a
+find_package(PostgreSQL REQUIRED)
+
+if(PostgreSQL_FOUND)
+    message(STATUS "PostgreSQL Include Directory: ${PostgreSQL_INCLUDE_DIRS}")
+    message(STATUS "PostgreSQL Library Path: ${PostgreSQL_LIBRARY_DIR}")
+
+    # Include PostgreSQL headers
+    target_include_directories(${EXECUTABLE_NAME} PRIVATE ${PostgreSQL_INCLUDE_DIRS})
+    
+    # Locate the static library explicitly
+    find_library(PostgreSQL_STATIC_LIB NAMES libpq.a PATHS ${PostgreSQL_LIBRARY_DIR})
+    if(PostgreSQL_STATIC_LIB)
+        message(STATUS "PostgreSQL Static Library: ${PostgreSQL_STATIC_LIB}")
+        
+        # Link the static library and its dependencies
+        target_link_libraries(${EXECUTABLE_NAME} PRIVATE ${PostgreSQL_STATIC_LIB} -lpthread -lz -lssl -lcrypto -ldl)
+    else()
+        message(FATAL_ERROR "Static PostgreSQL library (libpq.a) not found!")
+    endif()
+else()
+    message(FATAL_ERROR "PostgreSQL not found!")
+endif()
+
+
+# Locate and include QuickFIX static library
+set(QUICKFIX_LIBRARY /usr/local/lib/libquickfix.a)
 set(QUICKFIX_INCLUDE_DIR /usr/local/include/quickfix)
 
-if(QUICKFIX_LIBRARIES AND QUICKFIX_INCLUDE_DIR)
+if(EXISTS ${QUICKFIX_LIBRARY} AND EXISTS ${QUICKFIX_INCLUDE_DIR})
     message(STATUS "QuickFix Include Directory: ${QUICKFIX_INCLUDE_DIR}")
-    message(STATUS "QuickFix Libraries: ${QUICKFIX_LIBRARIES}")
+    message(STATUS "QuickFix Static Library: ${QUICKFIX_LIBRARY}")
+    
+    # Include QuickFIX headers
     target_include_directories(${EXECUTABLE_NAME} PRIVATE ${QUICKFIX_INCLUDE_DIR})
-    target_link_libraries(${EXECUTABLE_NAME} PRIVATE ${QUICKFIX_LIBRARIES})
+
+    # Link QuickFIX static library
+    target_link_libraries(${EXECUTABLE_NAME} PRIVATE ${QUICKFIX_LIBRARY})
+    
 else()
-    message(FATAL_ERROR "QuickFix not found!")
+    message(FATAL_ERROR "QuickFix static library or include directory not found!")
 endif()
