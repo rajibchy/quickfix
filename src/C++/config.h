@@ -6,5 +6,5 @@
 /* #undef HAVE_MYSQL */
 #define HAVE_POSTGRESQL
 #define HAVE_SSL 1
-
+#define MULTI_TENANT
 #endif

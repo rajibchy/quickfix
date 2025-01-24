@@ -24,6 +24,8 @@ option(HAVE_POSTGRESQL "Build with PostgreSQL")
 option(HAVE_PYTHON "Build with default Python version")
 option(HAVE_PYTHON3 "Build with default Python3 version")
 
+option(MULTI_TENANT "Build with Multi-Tenant")
+
 # add option to build shared or static
 option(QUICKFIX_SHARED_LIBS "Build using shared libraries" ON)
 # add option to build other targets
