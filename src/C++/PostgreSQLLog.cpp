@@ -32,6 +32,33 @@
 #include "strptime.h"
 #include <fstream>
 
+#ifdef MULTI_TENANT
+#include <iostream>
+#include <ctime>
+#include <iomanip>
+#include <cstring>
+
+static void get_current_date( std::string& result ) {
+    // Get the current time
+    std::time_t now = std::time( nullptr );
+    std::tm timeStruct {};
+
+    // Use localtime_r for POSIX and localtime_s for Windows
+#ifdef _WIN32
+    localtime_s( &timeStruct, &now );
+#else
+    localtime_r( &now, &timeStruct );
+#endif
+
+    // Format the date to YYYY-MM-DD
+    std::ostringstream oss;
+    oss << std::put_time( &timeStruct, "%Y-%m-%d" );
+    oss.str( ).swap( result );
+}
+
+#endif //!MULTI_TENANT
+
+
 namespace FIX
 {
 
@@ -228,14 +255,26 @@ void PostgreSQLLog::backup()
 {
    std::stringstream msgLogQuery;
    std::stringstream eventLogQuery;
+#ifdef MULTI_TENANT
+   std::string current_date;
+   get_current_date( current_date );
+#endif //!MULTI_TENANT
    // copy data to backup table
    msgLogQuery
        << "INSERT INTO " << m_incomingTable << "_backup(msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text, action_date)"
-       << "SELECT msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text, action_date FROM " << m_incomingTable << " ORDER BY id";
+       << "SELECT msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text, action_date FROM " << m_incomingTable
+#ifdef MULTI_TENANT
+       << " action_date < '" << current_date << "' "
+#endif //!MULTI_TENANT
+       << " ORDER BY id";
 
    eventLogQuery
        << "INSERT INTO " << m_eventTable << "_backup(msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text, action_date)"
-       << "SELECT msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text, action_date FROM " << m_eventTable << " ORDER BY id";
+       << "SELECT msgtype, time, beginstring, sendercompid, targetcompid, session_qualifier, text, action_date FROM " << m_eventTable
+#ifdef MULTI_TENANT
+       << " action_date < '" << current_date << "' "
+#endif //!MULTI_TENANT
+       << " ORDER BY id";
 
    PostgreSQLQuery msgLog( msgLogQuery.str( ) );
    PostgreSQLQuery eventLog( eventLogQuery.str( ) );
@@ -246,6 +285,8 @@ void PostgreSQLLog::backup()
    // truncate table
    std::stringstream( ).swap( msgLogQuery );
    std::stringstream( ).swap( eventLogQuery );
+
+#ifndef MULTI_TENANT
    msgLogQuery
        << "TRUNCATE TABLE " << m_incomingTable << " RESTART IDENTITY";
    eventLogQuery
@@ -256,6 +297,8 @@ void PostgreSQLLog::backup()
        msgLog.throwException( );
    if ( !m_pConnection->execute( eventLog ) )
        eventLog.throwException( );
+#endif //!MULTI_TENANT
+
 }
 static void findFieldValue( const std::string& fixMessage, const std::string& key, std::string& result ) {
     size_t startIndex = fixMessage.find( key );
